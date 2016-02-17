@@ -6,6 +6,7 @@ recording, dealing with and printing a spectrum easily
 #include<string>
 #include<sstream>
 #include"gfunction.h"
+#include "pArray.h"
 
 class spectrum {
 public:
@@ -15,12 +16,14 @@ public:
   spectrum();
   spectrum(double *E_, double *F_, unsigned num);
   spectrum(const std::vector <double> &E_, const std::vector <double> &F_);
+  spectrum(const pArray &E_, const pArray &F_);
   spectrum(double Es_, double Ee_, double factor_);
   spectrum(const std::string &filename, double Eindx = 0);
 
   int ini();
   int ini(double *E_, double *F_, unsigned num);
   int ini(const std::vector <double> &E_, const std::vector <double> &F_);
+  int ini(const pArray &E_, const pArray &F_);
   int ini(double Es_, double Ee_, double factor_);
   int ini(const std::string &filename, double Eindx = 0);
 
