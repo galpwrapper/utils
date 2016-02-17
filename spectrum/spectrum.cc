@@ -5,6 +5,7 @@
 #include<cstdlib>
 #include<iomanip>
 #include"vec_utils.h"
+#include"pArray.h"
 #include"spectrum.h"
 #include"interp.h"
 #include"oformat.h"
@@ -26,6 +27,10 @@ spectrum::spectrum() : Es(0), Ee(0), factor(0) {}
 spectrum::spectrum(double *E_, double *F_, unsigned num): E(E_, E_ + num), F(F_, F_ + num), Es(0), Ee(0), factor(0) {}
 spectrum::spectrum(const vector <double> &E_, const vector <double> &F_):
   E(E_), F(F_), Es(0), Ee(0), factor(0) {
+  ini_check();
+}
+spectrum::spectrum(const pArray &E_, const pArray &F_):
+  E(E_.a, E_.a + E_.GetLength()), F(F_.a, F_.a + F_.GetLength()), Es(0), Ee(0), factor(0) {
   ini_check();
 }
 spectrum::spectrum(double Es_, double Ee_, double factor_):
@@ -73,6 +78,19 @@ int spectrum::ini(const vector <double> &E_, const vector <double> &F_) {
   clear_lab();
   E = E_;
   F = F_;
+  ini_check();
+  return 0;
+}
+int spectrum::ini(const pArray &E_, const pArray &F_) {
+  ini();
+  int e_length = E_.GetLength();
+  int f_length = F_.GetLength();
+  for (unsigned i = 0; i < e_length; i++) {
+    E.push_back(E_.a[i]);
+  }
+  for (unsigned i = 0; i < f_length; i++) {
+    F.push_back(F_.a[i]);
+  }
   ini_check();
   return 0;
 }

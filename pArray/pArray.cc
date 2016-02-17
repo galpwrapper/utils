@@ -15,19 +15,17 @@ using namespace std;
 pArray::pArray():Name("not set"),
                  Unit("not set"),
                  Comments("no commemts"),
-                 Length(1) {
-  a = new double[Length];
-  memset(a, 0, Length*sizeof(double));
+                 Length(0) {
+  init();
 }
-pArray::pArray(int _Length,
-               std::string _Name,
+pArray::pArray(std::string _Name,
+               int _Length,
                std::string _Unit,
                std::string _Comments ):Name(_Name),
                                        Unit(_Unit),
                                        Comments(_Comments),
                                        Length(_Length) {
-  a = new double[Length];
-  memset(a, 0, Length*sizeof(double));
+  init();
 }
 pArray::pArray(const pArray & ref) {
   Length = ref.GetLength();
@@ -54,11 +52,28 @@ std::string pArray::GetComments() const {
 int pArray::GetLength() const {
   return Length;
 }
-void pArray::SetUtil(std::string _Unit) {
+void pArray::SetName(std::string _Name) {
+  Name = _Name;
+}
+void pArray::SetUnit(std::string _Unit) {
   Unit = _Unit;
 }
 void pArray::SetComments(std::string _Comments) {
   Comments = _Comments;
+}
+void pArray::resize(int _Length) {
+  Length = _Length;
+
+  delete []a;
+  init();
+}
+void pArray::init() {
+  if(Length == 0)
+    a = NULL;
+  else {
+    a = new double[Length];
+    memset(a, 0, Length*sizeof(double));
+  }
 }
 //**********************************************************************
 pArray & pArray::operator=(const pArray & ref) {
@@ -83,6 +98,8 @@ pArray & pArray::operator=(const float * ref) {
   return *this;
 }
 //**********************************************************************
+#define CK_UNIT true
+#define NOT_CK_UNIT  false
 #define NOT_DIVIDE(lhs, ope, rhs, res) res = lhs ope rhs
 #define DIVIDE(lhs, ope, rhs, res)\
   if(rhs == 0) res=0;\
@@ -93,7 +110,7 @@ pArray & pArray::operator=(const float * ref) {
 #define POW(div_or_not, lhs, ope, rhs, res)\
   res = pow(lhs, rhs)
 
-#define OPERFUNC(oper, opers, div_or_not, pow_or_not)\
+#define OPERFUNC(oper, opers, div_or_not, pow_or_not, ck_unit )\
   pArray operator oper(const double &lhs, const pArray &rhs) {\
     pArray result(rhs);\
     for(int i=0; i<result.GetLength(); i++) {\
@@ -102,7 +119,7 @@ pArray & pArray::operator=(const float * ref) {
     return result;\
   }\
   pArray & pArray::operator opers(const pArray &rhs) {\
-    if(Unit != rhs.GetUnit() || Length != rhs.GetLength()) {\
+    if(Length != rhs.GetLength() || (ck_unit && Unit != rhs.GetUnit())) {\
       cout<<"ERROR: operate with differnt form of pArray"<<endl;\
       cout<<"       pArray1: "<<Name<<"\t"<<Unit<<"\t"<<Length<<endl;\
       cout<<"       pArray2: "<<rhs.GetName()<<"\t"<<rhs.GetUnit()<<"\t"<<rhs.GetLength()<<endl;\
@@ -129,11 +146,11 @@ pArray & pArray::operator=(const float * ref) {
     result opers rhs;\
     return result;\
   }
-OPERFUNC(+, +=, NOT_DIVIDE, NOT_POW)
-OPERFUNC(-, -=, NOT_DIVIDE, NOT_POW)
-OPERFUNC(*, *=, NOT_DIVIDE, NOT_POW)
-OPERFUNC(/, /=, DIVIDE, NOT_POW)
-OPERFUNC(^, ^=, DIVIDE, POW)
+OPERFUNC(+, +=, NOT_DIVIDE, NOT_POW, CK_UNIT)
+OPERFUNC(-, -=, NOT_DIVIDE, NOT_POW, CK_UNIT)
+OPERFUNC(*, *=, NOT_DIVIDE, NOT_POW, NOT_CK_UNIT)
+OPERFUNC(/, /=, DIVIDE, NOT_POW, NOT_CK_UNIT)
+OPERFUNC(^, ^=, DIVIDE, POW, NOT_CK_UNIT)
 
 #undef NOT_DIVIDE
 #undef DIVIDE

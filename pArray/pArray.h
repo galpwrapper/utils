@@ -12,8 +12,8 @@ public:
   double * a;
 
   pArray();
-  pArray(int _Length,
-         std::string _Name,
+  pArray(std::string _Name,
+         int _Length = 0,
          std::string _Unit = "not set",
          std::string _Comments = "no comments");
   pArray(const pArray &);
@@ -24,8 +24,10 @@ public:
   std::string GetComments() const;
   int GetLength() const;
 
-  void SetUtil(std::string);
+  void SetName(std::string);
+  void SetUnit(std::string);
   void SetComments(std::string);
+  void resize(int _Length); // NB: this method will clear all data
 
   pArray & operator=(const pArray &);
   pArray & operator=(const double *);
@@ -51,6 +53,8 @@ private:
   std::string Unit;
   std::string Comments;
   int Length;
+
+  void init();
 };
 
 pArray operator +(const double &lhs, const pArray &rhs);
