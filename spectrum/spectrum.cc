@@ -83,8 +83,8 @@ int spectrum::ini(const vector <double> &E_, const vector <double> &F_) {
 }
 int spectrum::ini(const pArray &E_, const pArray &F_) {
   ini();
-  int e_length = E_.GetLength();
-  int f_length = F_.GetLength();
+  unsigned e_length = E_.GetLength();
+  unsigned f_length = F_.GetLength();
   for (unsigned i = 0; i < e_length; i++) {
     E.push_back(E_.a[i]);
   }
