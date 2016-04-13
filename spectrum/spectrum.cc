@@ -67,6 +67,8 @@ int spectrum::ini() {
 int spectrum::ini(double *E_, double *F_, unsigned num) {
   ini();
 
+  E.reserve(num);
+  F.reserve(num);
   for (unsigned i = 0; i < num; i++) {
     E.push_back(E_[i]);
     F.push_back(F_[i]);
@@ -85,6 +87,8 @@ int spectrum::ini(const pArray &E_, const pArray &F_) {
   ini();
   unsigned e_length = E_.GetLength();
   unsigned f_length = F_.GetLength();
+  E.reserve(e_length);
+  F.reserve(f_length);
   for (unsigned i = 0; i < e_length; i++) {
     E.push_back(E_.a[i]);
   }
