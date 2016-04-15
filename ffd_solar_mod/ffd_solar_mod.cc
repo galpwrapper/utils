@@ -44,8 +44,8 @@ int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t) {
       }
     }
 
-    while (spec_t.E.size() > 0 && spec_t.F[0] == 0)
-      spec_t.del_p(0);
+    //while (spec_t.E.size() > 0 && spec_t.F[0] == 0)
+    //  spec_t.del_p(0);
 
     if (spec_t.E.size() == 0) cout << "All these flux should not come from the outside Galaxy" << endl;
   }

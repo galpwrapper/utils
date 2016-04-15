@@ -4,6 +4,7 @@
 #ifndef _PARRAY_H
 #define _PARRAY_H
 #include <iostream>
+#include <vector>
 #include <string>
 
 class pArray 
@@ -27,6 +28,11 @@ public:
   void SetName(std::string);
   void SetUnit(std::string);
   void SetComments(std::string);
+
+  void SetValues(const std::vector <double> &v);
+  void SetValues(const pArray &arr);
+  void SetValues(double *v, int _Length);
+
   void resize(int _Length); // NB: this method will clear all data
 
   pArray & operator=(const pArray &);

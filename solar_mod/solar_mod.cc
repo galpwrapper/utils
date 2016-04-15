@@ -36,6 +36,19 @@ int solar_mod::mod(spectrum &spec, double phi_) {
   return mod(spec_tmp, spec);
 }
 
+int solar_mod::mod(pArray &E_, pArray &F_) {
+  spectrum spec_target(E_, F_);
+  int result = mod(spectrum(E_, F_), spec_target);
+
+  E_.SetValues(spec_target.E);
+  F_.SetValues(spec_target.F);
+  return result;
+}
+int solar_mod::mod(pArray &E_, pArray &F_, double phi_) {
+  phi_ini(phi_);
+  return mod(E_, F_);
+}
+
 int solar_mod::mod(const spectrum &spec_o, spectrum &spec_t) {
   cout << "solar_mod::mod::The modulating function is not called" << endl;
   return 0;

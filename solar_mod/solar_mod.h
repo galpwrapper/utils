@@ -7,6 +7,7 @@
  From solar_mod.f file.
  *********************************************************************/
 #include"spectrum.h"
+#include"pArray.h"
 class solar_mod {
 protected:
   bool pflag;
@@ -26,6 +27,8 @@ public:
 
   int mod(spectrum &spec);
   int mod(spectrum &spec, double phi_);
+  int mod(pArray &E_, pArray &F_);
+  int mod(pArray &E_, pArray &F_, double phi_);
 
   virtual int mod(const spectrum &spec_o, spectrum &spec_t);
   int mod(const spectrum &spec_o, spectrum &spec_t, double phi_);

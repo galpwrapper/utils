@@ -61,6 +61,25 @@ void pArray::SetUnit(std::string _Unit) {
 void pArray::SetComments(std::string _Comments) {
   Comments = _Comments;
 }
+void pArray::SetValues(const vector <double> &v) {
+  Length = v.size();
+  delete []a;
+  a = new double[Length];
+  copy(&(v[0]), &(v[0]) + Length, a);
+}
+void pArray::SetValues(const pArray &arr) {
+  Length = arr.GetLength();
+  delete []a;
+  a = new double[Length];
+  copy(arr.a, arr.a + Length, a);
+}
+void pArray::SetValues(double *v, int _Length) {
+  Length = _Length;
+  delete []a;
+  a = new double[Length];
+  copy(v, v + Length, a);
+}
+
 void pArray::resize(int _Length) {
   Length = _Length;
 
