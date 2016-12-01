@@ -31,7 +31,7 @@ void solar_mod::rigidity_to_ekin(spectrum& spec) {
   for (unsigned i = 0; i < spec.E.size(); i++) {
     double momentum = spec.E[i] * abs(Z);
     double energy = sqrt(momentum * momentum + nA * m0 * nA * m0);
-    spec.E[i] = (energy - m0) / nA; // assign Ekin_per
+    spec.E[i] = energy / nA - m0; // assign Ekin_per
     spec.F[i] = spec.F[i] * energy / momentum * nA / abs(Z); // dNdEkinper = dNdR * E / p * A / Z
   }
 }
