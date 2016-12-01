@@ -28,4 +28,28 @@ VECTOR_UTILS_OPERATOR(+)
 VECTOR_UTILS_OPERATOR(-)
 VECTOR_UTILS_OPERATOR(*)
 VECTOR_UTILS_OPERATOR( /)
+
+namespace vec_utils {
+  template<typename TI, typename TO> void map(const std::vector<TI>& input, std::vector<TO>& output, TO (*function)(const TI&)) {
+    output.clear();
+    output.reserve(input.size());
+    for (auto iter = input.begin(); iter != input.end(); iter++)
+      output.push_back(function(*iter));
+  }
+
+  template<typename TI, typename TO> void pair_map(const std::vector<TI>& input, std::vector<TO>& output, TO (*function)(const TI&, const TI&)) {
+    output.clear();
+    if (input.size() <= 1) return;
+
+    output.reserve(input.size() - 1);
+    auto iter = input.begin(),
+         seciter = iter;
+    seciter++;
+    for (; seciter != input.end();) {
+      output.push_back(function(*iter, *seciter));
+      iter++;
+      seciter++;
+    }
+  }
+}
 #endif // for #ifndef _VEC_UTILS_H

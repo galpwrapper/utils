@@ -10,7 +10,7 @@ This class is designed to lock a root file while one routine using it
 *********************************************************************/
 class locker {
 public:
-  FILE *file = 0;
+  FILE *file;
   int fd;
   bool available;
 
