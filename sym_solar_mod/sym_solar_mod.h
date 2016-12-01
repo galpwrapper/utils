@@ -54,6 +54,6 @@ public:
   sym_solar_mod(int A_, int Z_, double phi_, bool pflag_);
   sym_solar_mod(int A_, int Z_, double phi_);
 
-  int mod(const spectrum &spec_o, spectrum &spec_t);
+  int mod(const spectrum &spec_o, spectrum &spec_t, double phi_ = -1);
 };
 #endif // for #ifndef _SYM_SOLAR_MOD_H

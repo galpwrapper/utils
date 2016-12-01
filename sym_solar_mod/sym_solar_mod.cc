@@ -112,7 +112,8 @@ inline double sym_solar_mod::dudr(unsigned i_r) const {
   return (u[i_r + 1] - u[i_r]) / dr(i_r);
 }
 
-int sym_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t) {
+int sym_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
+  if (phi_ >= 0) phi_ini(phi_);
   const double alpha = 0.5;
   gen_E(spec_o);
 

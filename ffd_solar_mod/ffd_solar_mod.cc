@@ -23,7 +23,9 @@ ffd_solar_mod::ffd_solar_mod(int A_, int Z_, double phi_):
     phi_ini(phi_);
 }
 
-int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t) {
+int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
+  if (phi_ >= 0) phi_ini(phi_);
+
   const interp intp_ori(spec_o);
 
   if (phi >= 0) { //modulation
