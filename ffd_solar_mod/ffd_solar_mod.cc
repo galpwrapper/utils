@@ -1,10 +1,15 @@
 #include<cmath>
+#include<sstream>
+#include<iomanip>
 #include"interp.h"
 #include"ffd_solar_mod.h"
 
 using std::abs;
 using std::cout;
 using std::endl;
+using std::ios;
+using std::setiosflags;
+using std::setprecision;
 
 int ffd_solar_mod::phi_ini(double phi_) {
   phi = phi_ * abs(double(Z)) / (0 == A ? 1 : A);
@@ -52,7 +57,13 @@ int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
     if (spec_t.E.size() == 0) cout << "All these flux should not come from the outside Galaxy" << endl;
   }
 
-  if (pflag) spec_t.print();
+  if (pflag) {
+    cout << "#Solar modulation with A = " << A << "  Z = " << Z << "  effective phi = " << phi << "  m0 = " << m0 << endl;
+    cout << "#E   F_before_modulation   F_after_modulation" << endl;
+    cout << setiosflags(ios::scientific) << setprecision(6);
+    for (unsigned i = 0; i < spec_t.E.size(); i++)
+      cout << spec_t.E[i] << " " << intp_ori.lnask(spec_t.E[i]) << " " << spec_t.F[i] << endl;
+  }
 
   return 0;
 }

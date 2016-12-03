@@ -7,7 +7,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-#define m0A 0 == A ? 0.511e-3 : 0.9382
+#define m0A 0 == A_ ? 0.511e-3 : 0.9382
 
 solar_mod::solar_mod() : pflag(false), nA(1), A(0), Z(0) {};
 solar_mod::solar_mod(int A_, int Z_, bool pflag_): pflag(pflag_), m0(m0A), nA(0 == A_ ? 1 : A_), A(A_), Z(Z_) {}
