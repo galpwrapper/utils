@@ -51,5 +51,11 @@ namespace vec_utils {
       seciter++;
     }
   }
+
+  template<typename T> int index(const std::vector<T>& array, const T& term) {
+    for(int i = 0; i < array.size(); i++)
+      if (array[i] == term) return i;
+    return -1;
+  }
 }
 #endif // for #ifndef _VEC_UTILS_H
