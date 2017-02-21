@@ -68,5 +68,7 @@ pArray operator -(const double &lhs, const pArray &rhs);
 pArray operator *(const double &lhs, const pArray &rhs);
 pArray operator /(const double &lhs, const pArray &rhs);
 pArray operator ^(const double &lhs, const pArray &rhs);
+bool operator ==(const pArray &lhs, const pArray &rhs);
+bool operator !=(const pArray &lhs, const pArray &rhs);
 std::ostream & operator<<(std::ostream & out, const pArray & ref);
 #endif

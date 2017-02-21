@@ -177,6 +177,21 @@ OPERFUNC(^, ^=, DIVIDE, POW, NOT_CK_UNIT)
 #undef POW
 #undef OPERFUNC
 //**********************************************************************
+bool operator!=(const pArray &lhs, const pArray &rhs) {
+  if (lhs.GetName() != rhs.GetName() ||
+      lhs.GetUnit() != rhs.GetUnit() ||
+      lhs.GetComments() != rhs.GetComments() ||
+      lhs.GetLength() != rhs.GetLength()) return true;
+
+  for (unsigned i = 0; i < lhs.GetLength(); i++)
+    if (lhs.a[i] != rhs.a[i]) return true;
+
+  return false;
+}
+bool operator==(const pArray &lhs, const pArray &rhs) {
+  return !(lhs != rhs);
+}
+
 ostream & operator<<(ostream & out, const pArray & ref) {
   out<<"[pArray: Length="<<ref.GetLength()<<"]"<<endl;
   out<<"Name: "<<ref.GetName()<<endl;
