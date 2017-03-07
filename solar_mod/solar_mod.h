@@ -18,11 +18,11 @@ protected:
 
   virtual int phi_ini(double phi_);
 
-  void rigidity_to_ekin(spectrum& spec);
-  void ekin_to_rigidity(spectrum& spec);
-
 public:
   int nA, A, Z;
+
+  void rigidity_to_ekin(spectrum& spec);
+  void ekin_to_rigidity(spectrum& spec);
 
   solar_mod();
   solar_mod(int A_, int Z_, bool pflag_);
