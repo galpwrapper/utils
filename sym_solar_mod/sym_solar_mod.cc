@@ -21,6 +21,10 @@ int sym_solar_mod::phi_ini(double phi) {
   return 0;
 }
 
+double sym_solar_mod::getphi() const {
+  return 7.12782e-5 / k0;
+}
+
 double inline Vfunc(double r) {// from Potgieter et. al 2014 1302.1284
   return 2.6756e-6 * (1 - exp(- 13.3 * (r - 0.0046))); //r in Au/s  4e5/1.49498e11,  0.0046 is the radius of sun
 }
@@ -53,15 +57,12 @@ int sym_solar_mod::ini_r() {
 }
 
 sym_solar_mod::sym_solar_mod() {
+  ini(0, 0, 0, false);
   if (r[299] == 0) ini_r();
 }
-sym_solar_mod::sym_solar_mod(int A_, int Z_, double phi_, bool pflag_) : solar_mod(A_, Z_, pflag) {
+sym_solar_mod::sym_solar_mod(int A_, int Z_, double phi_, bool pflag_) {
+  ini(A_, Z_, phi_, pflag_);
   if (r[299] == 0) ini_r();
-  phi_ini(phi_);
-}
-sym_solar_mod::sym_solar_mod(int A_, int Z_, double phi_) : solar_mod(A_, Z_) {
-  if (r[299] == 0) ini_r();
-  phi_ini(phi_);
 }
 
 inline void sym_solar_mod::gen_E(const spectrum &spec) {
@@ -112,8 +113,7 @@ inline double sym_solar_mod::dudr(unsigned i_r) const {
   return (u[i_r + 1] - u[i_r]) / dr(i_r);
 }
 
-int sym_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
-  if (phi_ >= 0) phi_ini(phi_);
+int sym_solar_mod::domod(const spectrum &spec_o, spectrum &spec_t) {
   const double alpha = 0.5;
   gen_E(spec_o);
 

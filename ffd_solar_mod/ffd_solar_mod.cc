@@ -16,21 +16,14 @@ int ffd_solar_mod::phi_ini(double phi_) {
   return 0;
 }
 
-ffd_solar_mod::ffd_solar_mod() : solar_mod(0, 0, 0), phi(0) {};
-ffd_solar_mod::ffd_solar_mod(int A_, int Z_, double phi_, bool pflag_):
-  solar_mod(A_, Z_, pflag_) {
-    phi_ini(phi_);
+ffd_solar_mod::ffd_solar_mod() {
+  ini(0, 0, 0, false);
+};
+ffd_solar_mod::ffd_solar_mod(int A_, int Z_, double phi_, bool pflag_) {
+    ini(A_, Z_, phi_, pflag_);
 }
 
-
-ffd_solar_mod::ffd_solar_mod(int A_, int Z_, double phi_):
-  solar_mod(A_, Z_, false) {
-    phi_ini(phi_);
-}
-
-int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
-  if (phi_ >= 0) phi_ini(phi_);
-
+int ffd_solar_mod::domod(const spectrum &spec_o, spectrum &spec_t) {
   const interp intp_ori(spec_o);
 
   if (phi >= 0) { //modulation
@@ -58,12 +51,14 @@ int ffd_solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_) {
   }
 
   if (pflag) {
-    cout << "#Solar modulation with A = " << A << "  Z = " << Z << "  effective phi = " << phi << "  m0 = " << m0 << endl;
-    cout << "#E   F_before_modulation   F_after_modulation" << endl;
     cout << setiosflags(ios::scientific) << setprecision(6);
     for (unsigned i = 0; i < spec_t.E.size(); i++)
       cout << spec_t.E[i] << " " << intp_ori.lnask(spec_t.E[i]) << " " << spec_t.F[i] << endl;
   }
 
   return 0;
+}
+
+double ffd_solar_mod::getphi() const {
+  return phi;
 }

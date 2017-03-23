@@ -36,7 +36,6 @@ private:
   long double a[n_grid_r - 2], b[n_grid_r - 2], c[n_grid_r - 2], d[n_grid_r - 2];
 
   std::vector <double> specE;
-  int phi_ini(double phi_);
 
   int ini_r();
   inline void gen_E(const spectrum &spec);
@@ -48,12 +47,13 @@ private:
   inline double dr(unsigned i_r) const;
   inline double dudr(unsigned i_r) const;
 
+  int phi_ini(double phi_);
+  int domod(const spectrum &spec_o, spectrum &spec_t);
+  double getphi() const;
+
 public:
   int An; // An is the particle number inside the nuclear
   sym_solar_mod();
-  sym_solar_mod(int A_, int Z_, double phi_, bool pflag_);
-  sym_solar_mod(int A_, int Z_, double phi_);
-
-  int mod(const spectrum &spec_o, spectrum &spec_t, double phi_ = -1);
+  sym_solar_mod(int A_, int Z_, double phi_, bool pflag_ = false);
 };
 #endif // for #ifndef _SYM_SOLAR_MOD_H

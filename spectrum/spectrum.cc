@@ -199,9 +199,9 @@ int spectrum::print(const string &filename) const {
   return dealoutput(filename, os);
 }
 
-int spectrum::dealing(gfunction *func) {
+int spectrum::dealing(const std::function <double(double, double)>& func) {
   for (unsigned i = 0; i < E.size(); i++) {
-    F[i] = (*func)(E[i], F[i]);
+    F[i] = func(E[i], F[i]);
   }
 
   return 0;

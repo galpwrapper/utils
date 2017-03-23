@@ -5,7 +5,7 @@ recording, dealing with and printing a spectrum easily
 #define _SPECTURM_H
 #include<string>
 #include<sstream>
-#include"gfunction.h"
+#include<functional>
 #include "pArray.h"
 
 class spectrum {
@@ -37,7 +37,7 @@ public:
 
   int dealoutput(const std::string &filename, const std::ostringstream &os) const;
 
-  int dealing(gfunction *func);
+  int dealing(const std::function <double(double, double)>& func);
   int add(const spectrum &rhs);
   int substra(const spectrum &rhs);
   int product(const spectrum &rhs);

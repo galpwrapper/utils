@@ -16,7 +16,9 @@ protected:
   bool pflag;
   double m0;
 
+  virtual double getphi() const;
   virtual int phi_ini(double phi_);
+  virtual int domod(const spectrum &spec_o, spectrum &spec_t);
 
 public:
   int nA, A, Z;
@@ -24,16 +26,12 @@ public:
   void rigidity_to_ekin(spectrum& spec);
   void ekin_to_rigidity(spectrum& spec);
 
-  solar_mod();
-  solar_mod(int A_, int Z_, bool pflag_);
-  solar_mod(int A_, int Z_);
+  int ini(int A_, int Z_, double phi_, bool pflag_ = false);
 
-  int ini(int A_, int Z_, double phi_, bool pflag_);
-  int ini(int A_, int Z_, double phi_);
+  int mod(spectrum &spec, double phi_ = -1, const std::string &type = "ekin");
+  int mod(pArray &E_, pArray &F_, double phi_ = -1, const std::string &type = "ekin");
+  int mod(const spectrum &spec_o, spectrum &spec_t, double phi_ = -1, const std::string &type = "ekin");
 
-  int mod(spectrum &spec, double phi_ = -1, const std::string& type = "ekin");
-  int mod(pArray &E_, pArray &F_, double phi_ = -1, const std::string& type = "ekin");
-
-  virtual int mod(const spectrum &spec_o, spectrum &spec_t, double phi_ = -1);
+  double phi() const;
 };
 #endif // for #ifndef _SOLAR_MOD_H
