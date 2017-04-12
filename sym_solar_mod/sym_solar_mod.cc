@@ -86,7 +86,7 @@ inline void sym_solar_mod::gen_E(const spectrum &spec) {
   
   static const double sq_rmax = sqrt(r[n_grid_r - 1]);
   interp intp_spec(spec);
-  for(unsigned i = 0; i < n_grid_E; i++) umax[i] = sq_rmax * intp_spec.lnask(E[i]);
+  for(unsigned i = 0; i < n_grid_E; i++) umax[i] = sq_rmax * intp_spec.lnask_check(E[i]);
 }
 
 inline double sym_solar_mod::hij(unsigned i_r, unsigned i_E) const {

@@ -24,11 +24,11 @@ ffd_solar_mod::ffd_solar_mod(int A_, int Z_, double phi_, bool pflag_) {
 }
 
 int ffd_solar_mod::domod(const spectrum &spec_o, spectrum &spec_t) {
-  const interp intp_ori(spec_o);
+  interp intp_ori(spec_o);
 
   if (phi >= 0) { //modulation
     for (unsigned i = 0; i < spec_t.E.size(); i++) {
-      spec_t.F[i] = intp_ori.lnask(spec_t.E[i] + phi)
+      spec_t.F[i] = intp_ori.lnask_check(spec_t.E[i] + phi)
                     * spec_t.E[i] * (spec_t.E[i] + 2 * m0)
                     / ((spec_t.E[i] + phi) * (spec_t.E[i] + phi + 2 * m0));
     }
@@ -38,7 +38,7 @@ int ffd_solar_mod::domod(const spectrum &spec_o, spectrum &spec_t) {
       if (spec_t.E[i] + phi <= 0) spec_t.F[i] = 0;
 
       else {
-        spec_t.F[i] = intp_ori.lnask(spec_t.E[i] + phi)
+        spec_t.F[i] = intp_ori.lnask_check(spec_t.E[i] + phi)
                       * spec_t.E[i] * (spec_t.E[i] + 2 * m0)
                       / ((spec_t.E[i] + phi) * (spec_t.E[i] + phi + 2 * m0));
       }
@@ -53,7 +53,7 @@ int ffd_solar_mod::domod(const spectrum &spec_o, spectrum &spec_t) {
   if (pflag) {
     cout << setiosflags(ios::scientific) << setprecision(6);
     for (unsigned i = 0; i < spec_t.E.size(); i++)
-      cout << spec_t.E[i] << " " << intp_ori.lnask(spec_t.E[i]) << " " << spec_t.F[i] << endl;
+      cout << spec_t.E[i] << " " << intp_ori.lnask_check(spec_t.E[i]) << " " << spec_t.F[i] << endl;
   }
 
   return 0;

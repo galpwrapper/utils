@@ -176,7 +176,7 @@ int spectrum::compare(const spectrum &another, ostringstream &os) const {
   os << "#\tE\tF1\tF2" << endl;
   os << setiosflags(ios::scientific) << setprecision(6);
   for (unsigned i = 0; i < E.size(); i++)
-    os << E[i] << "\t" << F[i] << "\t" << intp.lnask(E[i]) << endl;
+    os << E[i] << "\t" << F[i] << "\t" << intp.lnask_check(E[i]) << endl;
 
   return 0;
 }
@@ -210,14 +210,14 @@ int spectrum::dealing(const std::function <double(double, double)>& func) {
 int spectrum::add(const spectrum &rhs) {
   interp intp(rhs.E, rhs.F);
 
-  for (unsigned i = 0; i < E.size(); i++) F[i] += intp.lnask(E[i]);
+  for (unsigned i = 0; i < E.size(); i++) F[i] += intp.lnask_check(E[i]);
 
   return 0;
 }
 int spectrum::substra(const spectrum &rhs) {
   interp intp(rhs.E, rhs.F);
 
-  for (unsigned i = 0; i < E.size(); i++) F[i] -= intp.lnask(E[i]);
+  for (unsigned i = 0; i < E.size(); i++) F[i] -= intp.lnask_check(E[i]);
 
   return 0;
 }
@@ -225,7 +225,7 @@ int spectrum::substra(const spectrum &rhs) {
 int spectrum::product(const spectrum &rhs) {
   interp intp(rhs.E, rhs.F);
 
-  for (unsigned i = 0; i < E.size(); i++) F[i] *= intp.lnask(E[i]);
+  for (unsigned i = 0; i < E.size(); i++) F[i] *= intp.lnask_check(E[i]);
 
   return 0;
 }
@@ -233,7 +233,7 @@ int spectrum::product(const spectrum &rhs) {
 int spectrum::divide(const spectrum &rhs) {
   interp intp(rhs.E, rhs.F);
 
-  for (unsigned i = 0; i < E.size(); i++) F[i] /= intp.lnask(E[i]);
+  for (unsigned i = 0; i < E.size(); i++) F[i] /= intp.lnask_check(E[i]);
 
   return 0;
 }
