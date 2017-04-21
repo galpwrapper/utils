@@ -3,7 +3,8 @@
 
 #include<string.h>
 
-template <class T> T str2enum( const char* );
+template <typename T> T str2enum(const char* str);
+template <typename T> const char* enum2str(T v);
 
 #define STR2ENUM(TYPE,ARRAY) \
 template <> \
@@ -16,19 +17,15 @@ TYPE str2enum<TYPE>( const char* str ) \
     }
 
 #define ENUM2STR(TYPE,ARRAY) \
+template <> \
 const char* enum2str( TYPE v ) \
     { \
     return v >= TYPE##_size ? "null" : ARRAY[v]; \
     }
 
-#define ENUMANDSTR(TYPE,ARRAY)\
-    STR2ENUM(TYPE,ARRAY) \
-    ENUM2STR(TYPE,ARRAY)
-
-#define ENUMDECLEAR(TYPE)\
-template <> \
-TYPE str2enum<TYPE>( const char* str ); \
-const char* enum2str( TYPE v );
+#define ENUMANDSTR(TYPE)\
+    STR2ENUM(TYPE,TYPE##_name) \
+    ENUM2STR(TYPE,TYPE##_name)
 
 #define ENUMNAMECLS(TYPE, CLASS) \
   const char* const CLASS::TYPE##_name[CLASS::TYPE##_size + 1]
