@@ -112,6 +112,7 @@ int spectrum::ini(double Es_, double Ee_, double factor_) {
   return 0;
 }
 int spectrum::ini(const string &filename, double Eindx) {
+  ini();
   const char annota[2] = "#";
   string line;
   double tmpE, tmpF;
