@@ -7,6 +7,7 @@
 using std::vector;
 using std::abs;
 using std::cout;
+using std::cerr;
 using std::endl;
 
 unsigned sym_solar_mod::iearth = 0;
@@ -16,6 +17,10 @@ double sym_solar_mod::r[] = {0},
        sym_solar_mod::dr2Vdr[] = {0};
 
 int sym_solar_mod::phi_ini(double phi) {
+  if (phi < 0) {
+    cerr << "sym_solar_mod::phi_ini::Warning::You are trying to use an unphysical phi" << endl;
+    throw(0);
+  }
   An = 0 == A ? 1 : A;
   k0 = 7.12782e-5 / phi; // According to Gleeson 1968, the relation between phi and rmax is phi=\int_{rmin}^{rmax}dr V(r)/(3k0)
   return 0;
