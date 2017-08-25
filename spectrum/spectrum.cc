@@ -200,6 +200,14 @@ int spectrum::print(const string &filename) const {
   return dealoutput(filename, os);
 }
 
+bool spectrum::zero() const
+{
+  for (auto f : F)
+    if (f != 0) return false;
+
+  return true;
+}
+
 int spectrum::dealing(const std::function <double(double, double)>& func) {
   for (unsigned i = 0; i < E.size(); i++) {
     F[i] = func(E[i], F[i]);

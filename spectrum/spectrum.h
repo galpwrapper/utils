@@ -27,6 +27,7 @@ public:
   int ini(double Es_, double Ee_, double factor_);
   int ini(const std::string &filename, double Eindx = 0);
 
+  bool zero() const;
   int print(std::ostringstream &os) const;
   int comp(const spectrum &another, std::ostringstream &os) const;
   int compare(const spectrum &another, std::ostringstream &os) const;
