@@ -51,7 +51,7 @@ void solar_mod::ekin_to_rigidity(spectrum& spec) {
   }
 }
 int solar_mod::mod(const spectrum &spec_o, spectrum &spec_t, double phi_, const string &type) {
-  phi_ini(phi_);
+  if (phi_ != -1) phi_ini(phi_);
 
   if (type != "rigidity" && type != "ekin") {
     cout << "solar_mod::mod::Error::the type you specified must be \"rigidity\" or \"ekin\"" << endl;
