@@ -12,7 +12,7 @@ using std::setiosflags;
 using std::setprecision;
 
 int ffd_solar_mod::phi_ini(double phi_) {
-  phi = phi_ * abs(double(Z)) / (0 == A ? 1 : A);
+  phi = phi_ * abs(double(Z)) / nA;
   return 0;
 }
 

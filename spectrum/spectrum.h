@@ -28,15 +28,13 @@ public:
   int ini(const std::string &filename, double Eindx = 0);
 
   bool zero() const;
-  int print(std::ostringstream &os) const;
-  int comp(const spectrum &another, std::ostringstream &os) const;
-  int compare(const spectrum &another, std::ostringstream &os) const;
+  int print(std::ostream &os) const;
+  int comp(const spectrum &another, std::ostream &os) const;
+  int compare(const spectrum &another, std::ostream &os) const;
 
   int print(const std::string &filename = "null") const;
   int comp(const spectrum &another, const std::string &filename = "null") const;
   int compare(const spectrum &another, const std::string &filename = "null") const;
-
-  int dealoutput(const std::string &filename, const std::ostringstream &os) const;
 
   int dealing(const std::function <double(double, double)>& func);
   int add(const spectrum &rhs);
@@ -62,6 +60,7 @@ public:
 
 private:
   int ini_check() const throw(errtype);
+  static int dealoutput(const std::string &filename, const std::ostringstream &os);
   inline int clear_lab();
   inline int clear_spec();
 };
@@ -70,4 +69,7 @@ spectrum operator *(const double &lhs, const spectrum &rhs);
 spectrum operator /(const double &lhs, const spectrum &rhs);
 spectrum operator +(const double &lhs, const spectrum &rhs);
 spectrum operator -(const double &lhs, const spectrum &rhs);
+
+std::ostream& operator<<(std::ostream& os, const spectrum& spec);
+
 #endif // for #ifndef _SPECTURM_H

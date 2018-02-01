@@ -14,6 +14,7 @@ using std::vector;
 using std::string;
 using std::istringstream;
 using std::ostringstream;
+using std::ostream;
 using std::ifstream;
 using std::ofstream;
 using std::abs;
@@ -153,7 +154,7 @@ int spectrum::ini_check() const throw(errtype) {
   return 1;
 }
 
-int spectrum::comp(const spectrum &another, ostringstream &os) const {
+int spectrum::comp(const spectrum &another, ostream &os) const {
   if (E.size() != another.E.size()) {
     compare(another, os);
 
@@ -171,7 +172,7 @@ int spectrum::comp(const spectrum &another, const string &filename) const {
   return dealoutput(filename, os);
 }
 
-int spectrum::compare(const spectrum &another, ostringstream &os) const {
+int spectrum::compare(const spectrum &another, ostream &os) const {
   interp intp(another.E, another.F);
 
   os << "#\tE\tF1\tF2" << endl;
@@ -187,7 +188,7 @@ int spectrum::compare(const spectrum &another, const string &filename) const {
   return dealoutput(filename, os);
 }
 
-int spectrum::print(ostringstream &os) const {
+int spectrum::print(ostream &os) const {
   os << setiosflags(ios::scientific) << setprecision(6);
   for (unsigned i = 0; i < E.size(); i++)
     os << E[i] << "\t" << F[i] << endl;
@@ -291,7 +292,7 @@ double spectrum::min() const {
   return minflux;
 }
 
-int spectrum::dealoutput(const string &filename, const ostringstream &os) const {
+int spectrum::dealoutput(const string &filename, const ostringstream &os) {
   if(filename == "null") cout << os.str();
   else {
     ofstream of(filename);
@@ -355,3 +356,11 @@ OPERFUNC(*, *=, NOT_DIVIDE)
 OPERFUNC(-, -=, NOT_DIVIDE)
 OPERFUNC(+, +=, NOT_DIVIDE)
 OPERFUNC( /, /=, IS_DIVIDE)
+
+ostream& operator<<(ostream& os, const spectrum& spec) {
+  os << setiosflags(ios::scientific) << setprecision(6);
+  for (unsigned i = 0; i < spec.E.size(); i++)
+    os << spec.E[i] << "\t" << spec.F[i] << endl;
+
+  return os;
+}
