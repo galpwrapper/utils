@@ -15,6 +15,7 @@ public:
   bool available;
 
   locker(const std::string &filename, int lock_type);
+  ~locker();
   void unlock();
 };
 

@@ -37,3 +37,5 @@ void locker::unlock() {
   fclose(file);
   available = false;
 }
+
+locker::~locker() { unlock(); }
