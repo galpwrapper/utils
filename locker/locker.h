@@ -14,7 +14,7 @@ public:
   int fd;
   bool available;
 
-  locker(const std::string &filename, int lock_type);
+  locker(const std::string &filename, int lock_type, const std::string& filetype = "ROOT");
   ~locker();
   void unlock();
 };
