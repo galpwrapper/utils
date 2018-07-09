@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 
 #include "root_finding.h"
 
@@ -22,6 +23,8 @@ double ridders_method(const function<double(const double)>& func, double x0, dou
   while (true) {
     double mid = (low + up) / 2,
       fmid = func(mid);
+    if (mid == low || mid == up) break;
+
     point = mid + (mid - low) * (flow < 0 ? -1 : 1) * fmid / sqrt(fmid * fmid - flow * fup);
     fpoint = func(point);
     if (fpoint == 0 || fpoint == flow || fpoint == fup) break;
