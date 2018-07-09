@@ -20,10 +20,11 @@ double ridders_method(const function<double(const double)>& func, double x0, dou
   }
   if (x1 == 0 && x0 == 0) return 0;
 
+  int iter = 0;
   while (true) {
     double mid = (low + up) / 2,
       fmid = func(mid);
-    if (mid == low || mid == up) break;
+    if (low == low + (mid - low) / 1e2) break;
 
     point = mid + (mid - low) * (flow < 0 ? -1 : 1) * fmid / sqrt(fmid * fmid - flow * fup);
     fpoint = func(point);
