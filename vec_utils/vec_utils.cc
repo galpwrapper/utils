@@ -58,6 +58,7 @@ int get_index(const double *arr, unsigned dim, double x) {
 
 #define OUTSTREAM(type)\
   ostream& operator<< (ostream& out,const vector <type> &vec){\
+    if (vec.empty()) return out;\
     out<<vec[0];\
     for(unsigned i=1;i<vec.size();i++) out<<"\t"<<vec[i];\
     return out;\
