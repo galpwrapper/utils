@@ -139,7 +139,7 @@ int spectrum::ini(const string &filename, double Eindx) {
   return 0;
 }
 
-int spectrum::ini_check() const throw(errtype) {
+int spectrum::ini_check() const {
   if (E.size() != F.size()) {
     cout << "ERROR::spectrum::spectrum:spectrum initializing with wrong vectors" << endl;
     cout << "E: " << E << endl;

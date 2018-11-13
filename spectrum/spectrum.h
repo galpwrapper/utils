@@ -59,7 +59,7 @@ public:
   SPECTURM_OPERATOR( /, /=)
 
 private:
-  int ini_check() const throw(errtype);
+  int ini_check() const;
   static int dealoutput(const std::string &filename, const std::ostringstream &os);
   inline int clear_lab();
   inline int clear_spec();
